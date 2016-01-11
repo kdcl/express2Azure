@@ -8,7 +8,7 @@ var json;""
 var options = {
   url: 'http://data.taipei/bus/CarUnusual',
   headers: {
-    'X-some-headers'  : 'Some headers',
+    'content-type': 'application/json',
     'Accept-Encoding' : 'gzip, deflate',
   },
   encoding: null
@@ -24,7 +24,7 @@ request.get(options, function (error, response, body) {
       zlib.gunzip(body, function(err, dezipped) {
         var json_string = dezipped.toString('utf-8');
         json = JSON.parse(json_string);
-        console.log(json.BusInfo[0].BusID);
+        console.log(json.BusInfo[1].BusID);
         // Process the json..
       });
     } else {
@@ -36,7 +36,7 @@ request.get(options, function (error, response, body) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: json.BusInfo[0].BusID });
+  res.render('index', { title: json.BusInfo[1].BusID });
 });
 
 module.exports = router;
