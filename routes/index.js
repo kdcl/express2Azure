@@ -31,7 +31,7 @@ function readJsonFile(filename, callback){
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-   readJsonFile('routes/youbike.json', function (err, json) {
+   readJsonFile(__dirname+"/youbike.json", function (err, json) {
     if(err) { throw err; }
     //console.log(json);
    // res.sendFile(__dirname+"/youbike.json");
