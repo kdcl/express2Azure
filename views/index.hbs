@@ -1,4 +1,5 @@
 <h1>Display {{title}}</h1>
+<h2>{{{jsonData.BusInfo.1.BusID}}}</h2>
 <div id="my-container" class="table-responsive">
 <table class="table table-striped">
 	<thead>
@@ -7,14 +8,6 @@
 		<th>StatusCode</th>
 		</tr>
 	</thead>
-	<tbody>
-		{{#each jsonData.BusInfo}}
-		<tr>
-			<td>{{ BusID }}</td>
-			<td>{{ StatusCode }}</td>
-		</tr>
-		{{/each}}
-</tbody>
 	
 </table>
  </div>
