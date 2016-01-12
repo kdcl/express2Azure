@@ -35,7 +35,7 @@ request.get(options, function (error, response, body) {
 });
 }
 
-setInterval(get_youbikeUpdate, 1000*60*);
+setInterval(get_youbikeUpdate, 1000*60*1);
 
 
 function readJsonFile(filename, callback){
@@ -74,7 +74,7 @@ router.get('/', function(req, res, next) {
     
   });
 });
-
+/*
 router.post('/', function(req, res) {
     readJsonFile(__dirname+"/YouBikeTP.json", function (err, json) {
     if(err){ 
@@ -82,5 +82,5 @@ router.post('/', function(req, res) {
     }});
     res.render('index', { title: "Youbike",jsonData:json});
 });
-
+*/
 module.exports = router;
