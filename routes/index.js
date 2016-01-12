@@ -24,7 +24,6 @@ request.get(options, function (error, response, body) {
       zlib.gunzip(body, function(err, dezipped) {
         var json_string = dezipped.toString('utf-8');
         json = JSON.parse(json_string);
-        console.log(json.BusInfo[1].BusID);
         // Process the json..
       });
     } else {
@@ -36,7 +35,7 @@ request.get(options, function (error, response, body) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: json.BusInfo[1].BusID });
+  res.render('index', { title: "Bus Data",jsonData:json});
 });
 
 module.exports = router;

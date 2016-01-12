@@ -1,2 +1,20 @@
-<h1>{{{title}}}</h1>
-<p>Welcome to {{{title}}}</p>
+<h1>Display {{title}}</h1>
+<div id="my-container" class="table-responsive">
+<table class="table table-striped">
+	<thead>
+		<tr>
+		<th>BusID</th>
+		<th>StatusCode</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#each jsonData.BusInfo}}
+		<tr>
+			<td>{{ BusID }}</td>
+			<td>{{ StatusCode }}</td>
+		</tr>
+		{{/each}}
+</tbody>
+	
+</table>
+ </div>
