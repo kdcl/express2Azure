@@ -35,7 +35,7 @@ request.get(options, function (error, response, body) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: "Bus Data",jsonData:json.BusInfo[0].BusID});
+  res.render('index', { title: "Bus Data",jsonData:json});
 });
 
 module.exports = router;
