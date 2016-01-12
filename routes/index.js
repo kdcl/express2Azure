@@ -14,6 +14,8 @@ var options = {
   encoding: null
 };
 
+function get_youbikeUpdate(){
+
 request.get(options, function (error, response, body) {
  
   if (!error && response.statusCode == 200) {
@@ -31,6 +33,9 @@ request.get(options, function (error, response, body) {
   }
  
 });
+}
+
+setInterval(get_youbikeUpdate, 1000*60*);
 
 
 function readJsonFile(filename, callback){
@@ -46,6 +51,16 @@ function readJsonFile(filename, callback){
     }
   });
 }
+/*
+fs.watchFile(__dirname+"/YouBikeTP.json", function(curr,prev,res) {
+    console.log("file Change");
+    readJsonFile(__dirname+"/YouBikeTP.json", function (err, json) {
+    if(err){ 
+      throw err;
+    }});
+    res.render('index', { title: "Youbike",jsonData:json});
+});
+*/
 
 
 /* GET home page. */
@@ -58,6 +73,14 @@ router.get('/', function(req, res, next) {
 
     
   });
+});
+
+router.post('/', function(req, res) {
+    readJsonFile(__dirname+"/YouBikeTP.json", function (err, json) {
+    if(err){ 
+      throw err;
+    }});
+    res.render('index', { title: "Youbike",jsonData:json});
 });
 
 module.exports = router;
