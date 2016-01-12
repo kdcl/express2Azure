@@ -8,6 +8,14 @@
 		<th>StatusCode</th>
 		</tr>
 	</thead>
+	<tbody>
+		{{#each jsonData.BusInfo}}
+		<tr>
+			<td>{{ BusID }}</td>
+			<td>{{ StatusCode }}</td>
+		</tr>
+		{{/each}}
+</tbody>
 	
 </table>
  </div>
