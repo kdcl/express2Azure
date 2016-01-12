@@ -6,7 +6,7 @@ var router = express.Router();
 
 var json;""
 var options = {
-  url: 'http://data.taipei/bus/CarUnusual',
+  url: 'http://data.taipei/youbike',
   headers: {
     'content-type': 'application/json',
     'Accept-Encoding' : 'gzip, deflate',
@@ -24,8 +24,6 @@ request.get(options, function (error, response, body) {
       zlib.gunzip(body, function(err, dezipped) {
         var json_string = dezipped.toString('utf-8');
         json = JSON.parse(json_string);
-        // Process the json..
-      });
     } else {
       // Response is not gzipped
     }
@@ -35,7 +33,7 @@ request.get(options, function (error, response, body) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: "Bus Data",jsonData:json});
+  res.render('index', { title: "youbike",jsonData:json});
 });
 
 module.exports = router;

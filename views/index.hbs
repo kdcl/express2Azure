@@ -1,18 +1,19 @@
 <h1>Display {{title}}</h1>
-<h2>{{{jsonData.BusInfo.1.BusID}}}</h2>
 <div id="my-container" class="table-responsive">
 <table class="table table-striped">
 	<thead>
 		<tr>
-		<th>BusID</th>
-		<th>StatusCode</th>
+		<th>position</th>
+		<th>total bike</th>
+		<th>rest bike</th>
 		</tr>
 	</thead>
 	<tbody>
-		{{#each jsonData.BusInfo}}
+		{{#each jsonData.retVal}}
 		<tr>
-			<td>{{ BusID }}</td>
-			<td>{{ StatusCode }}</td>
+			<td>{{ sna }}</td>
+			<td>{{ tot }}</td>
+			<td>{{ sbi }}</td>
 		</tr>
 		{{/each}}
 </tbody>
