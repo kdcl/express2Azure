@@ -28,23 +28,6 @@ function readJsonFile(filename, callback){
   });
 }
 
-request.get(options, function (error, response, body) {
- 
-  if (!error && response.statusCode == 200) {
-    // If response is gzip, unzip first
-    var encoding = response.headers['content-encoding']
-    if (encoding && encoding.indexOf('gzip') >= 0) {
-      zlib.gunzip(body, function(err, dezipped) {
-        var json_string = dezipped.toString('utf-8');
-        json = JSON.parse(json_string);
-        // Process the json..
-      });
-    } else {
-      // Response is not gzipped
-    }
-  }
- 
-});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
