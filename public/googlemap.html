@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
+    </style>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwAHa58ysskkYsN0y4HhB412Ff_KcWcQg">
+    </script>
+    <script type="text/javascript">
+      function initialize() {
+        var mapOptions = {
+          center: { lat: 25.048215, lng: 121.517123},
+          zoom: 17
+        };
+        var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+        var taipeiStation = new google.maps.LatLng(25.048079, 121.517080);//台北車站
+        var banqiaoStation = new google.maps.LatLng(25.014304, 121.463782);//板橋車站
+        var wanhuaStation = new google.maps.LatLng(25.033631, 121.500264);//萬華車站
+
+        var bounds = new google.maps.LatLngBounds();
+        bounds.extend(taipeiStation);
+        bounds.extend(wanhuaStation);
+        bounds.extend(banqiaoStation);
+        map.fitBounds(bounds);
+
+        var taipeiMarker = new google.maps.Marker({
+          position: taipeiStation,
+          map: map
+        });
+        var banqiaoMarker = new google.maps.Marker({
+              position: banqiaoStation,
+              map: map
+            });
+        var wanhuaMarker = new google.maps.Marker({
+              position: wanhuaStation,
+              map: map
+            });
+
+        attachSecretMessage(taipeiMarker, 0);
+        attachSecretMessage(wanhuaMarker, 1);
+        attachSecretMessage(banqiaoMarker, 2);
+      }
+
+      function attachSecretMessage(marker, num) {
+        var message = ['台北車站<br>Taipei Station', '萬華車站<br>Wanhua Station', '板橋車站<br>Banqiao Station'];
+        var infowindow = new google.maps.InfoWindow({
+            content: message[num]
+          });
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.open(marker.get('map'), marker);
+        });
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+  </body>
+</html>

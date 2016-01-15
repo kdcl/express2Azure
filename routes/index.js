@@ -25,7 +25,8 @@ request.get(options, function (error, response, body) {
       zlib.gunzip(body, function(err, dezipped) {
         var json_string = dezipped.toString('utf-8');
         json = JSON.parse(json_string);
-        fs.writeFile( __dirname+"/YouBikeTP.json", json_string);
+        fs.writeFile( __dirname+"/../public/javascripts/YouBikeTP.json", json_string);
+        console.log("get File");
       });
     } else {
       // Response is not gzipped
@@ -35,7 +36,7 @@ request.get(options, function (error, response, body) {
 });
 }
 
-setInterval(get_youbikeUpdate, 1000*60*1);
+setInterval(get_youbikeUpdate, 5000);//1000*60*1
 
 
 function readJsonFile(filename, callback){
@@ -51,36 +52,36 @@ function readJsonFile(filename, callback){
     }
   });
 }
-/*
-fs.watchFile(__dirname+"/YouBikeTP.json", function(curr,prev,res) {
+
+fs.watchFile(__dirname+"/../public/javascripts/YouBikeTP.json", function(curr,prev) {
     console.log("file Change");
-    readJsonFile(__dirname+"/YouBikeTP.json", function (err, json) {
-    if(err){ 
-      throw err;
-    }});
-    res.render('index', { title: "Youbike",jsonData:json});
+    
 });
-*/
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+   /*
    readJsonFile(__dirname+"/YouBikeTP.json", function (err, json) {
     if(err) { throw err; }
-    //console.log(json);
-   // res.sendFile(__dirname+"/youbike.json");
-    res.render('index', { title: "Youbike",jsonData:json});
+      res.render('index', { title: "Youbike",jsonData:json});
+    });
+  */
+//res.sendFile( __dirname + "/public/" + "googelmap.html" );    
+    //res.sendFile(path.join(__dirname + '/public/googelmap.html'));
 
-    
-  });
+    //res.sendFile(__dirname+'/googelmap.html');
+  //  res.render('index', { title: "Youbike",jsonData:json});
+    res.render('index');
+  
 });
-/*
+
 router.post('/', function(req, res) {
-    readJsonFile(__dirname+"/YouBikeTP.json", function (err, json) {
+/*    readJsonFile(__dirname+"/YouBikeTP.json", function (err, json) {
     if(err){ 
       throw err;
-    }});
-    res.render('index', { title: "Youbike",jsonData:json});
+    }});*/
+     res.render('index');
 });
-*/
+
 module.exports = router;
