@@ -121,7 +121,7 @@ function initialize() {
                     labelContent: this.sbi,
                     labelAnchor: new google.maps.Point(20, 30), //(10, 35),
                     map: map,
-                    icon:"./images/pin2.png",
+                    icon:"./images/pin3.png",
                     labelClass: "labels", // the CSS class for the label
                     labelInForeground: true
 

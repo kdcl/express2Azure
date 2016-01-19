@@ -30,6 +30,7 @@ request.get(options, function (error, response, body) {
       });
     } else {
       // Response is not gzipped
+      console.log("Response is not gzipped");
     }
   }
  
