@@ -36,7 +36,7 @@ request.get(options, function (error, response, body) {
 });
 }
 
-setInterval(get_youbikeUpdate, 5000);//1000*60*1
+setInterval(get_youbikeUpdate, 1000*60*1);//1000*60*1
 
 
 function readJsonFile(filename, callback){

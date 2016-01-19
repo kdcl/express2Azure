@@ -1,4 +1,3 @@
-
 function initialize() {
         var latitude = 25.048079,
             longitude = 121.517080,
@@ -13,10 +12,69 @@ function initialize() {
                 scrollwheel: true
             };
 
-        var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-       
-        setMarkers(center,  map);
+       var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+       setMarkers(center,  map);
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        var myButton = document.getElementById('myButton');
+
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+        map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(myButton);
+
+  // Bias the SearchBox results towards current map's viewport.
+  map.addListener('bounds_changed', function() {
+    searchBox.setBounds(map.getBounds());
+  });
+
+  var markers = [];
+  // Listen for the event fired when the user selects a prediction and retrieve
+  // more details for that place.
+  searchBox.addListener('places_changed', function() {
+    var places = searchBox.getPlaces();
+
+    if (places.length == 0) {
+      return;
     }
+
+    // Clear out the old markers.
+    markers.forEach(function(marker) {
+      marker.setMap(null);
+    });
+    markers = [];
+
+    // For each place, get the icon, name and location.
+    var bounds = new google.maps.LatLngBounds();
+    places.forEach(function(place) {
+      var icon = {
+        //url: place.icon,
+        size: new google.maps.Size(250, 250),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(25, 25)
+      };
+
+      markers.push(new google.maps.Marker({
+        map: map,
+        //icon: icon,
+        title: place.name,
+        position: place.geometry.location
+      }));
+
+
+      if (place.geometry.viewport) {
+        // Only geocodes have viewport.
+        bounds.union(place.geometry.viewport);
+        
+      } else {
+        bounds.extend(place.geometry.location);
+      }
+    });
+    map.fitBounds(bounds);
+    // console.log("After fit Bounds:"+map.getZoom());
+    map.setZoom(18);
+    // console.log("After set Zoom:"+map.getZoom());
+  });
+}
     
 
     function setMarkers(center,  map) {
@@ -63,7 +121,7 @@ function initialize() {
                     labelContent: this.sbi,
                     labelAnchor: new google.maps.Point(20, 30), //(10, 35),
                     map: map,
-                    icon:"./images/pin.png",
+                    icon:"./images/pin2.png",
                     labelClass: "labels", // the CSS class for the label
                     labelInForeground: true
 
@@ -88,7 +146,7 @@ function initialize() {
                             '<div id="bodyContent">'+'<div style="">'+'總車輛:'+data.tot+'</div>'+'<div style="">'+'剩餘車輛:'+data.sbi+'</div>';
 
         google.maps.event.addListener(infoWindow,'closeclick',function(){
-            marker.setIcon("./images/pin.png");
+            marker.setIcon("./images/pin2.png");
             // then, remove the infowindows name from the array
         });
         // Attaching a click event to the current marker
