@@ -1,0 +1,22 @@
+<link href="stylesheets/bootstrap.css" rel="stylesheet">
+<link href="stylesheets/bootstrap-datepicker.standalone.css" rel="stylesheet" type="text/css">
+<div class="span5 col-md-2 col-xs-3" id="sandbox-container">
+datetimepicker
+<input type="text" class="form-control" >
+</div>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
+<script src="javascripts/bootstrap.min.js"></script>
+<script src="javascripts/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="javascripts/locales/bootstrap-datepicker.zh-TW.min.js" charset="UTF-8"></script>
+<script>
+$('#sandbox-container input').datepicker({
+    autoclose: true,
+    todayHighlight: true,
+    toggleActive: true,
+    format: "yyyy/mm/dd"
+
+});
+$('.form-control').datepicker('update',new Date());
+
+</script>

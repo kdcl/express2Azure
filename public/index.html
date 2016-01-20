@@ -61,10 +61,10 @@
       
         
       
-      #myButton{
+      .btn{
         
         border-radius: 0 !important;
-        font-size: 18px;
+        font-size: 50px;
         padding: 8px 30px;
         font-family: 'cwTeXYen', sans-serif;
         text-shadow: 0px 75px 0px rgba(30, 30, 30, 0.8);
@@ -92,14 +92,36 @@
     <script src="javascripts/markerwithlabel.js" type="text/javascript"></script>
     <script src="javascripts/createmap.js"></script>
     <link rel="stylesheet" href="stylesheets/bootstrap.css">
+    <script src="javascripts/bootstrap-datepicker.min.js"></script>
+    <link href="stylesheets/bootstrap-datepicker.standalone.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="javascripts/locales/bootstrap-datepicker.zh-TW.min.js" charset="UTF-8"></script>
+
   </head>
   <body>
     <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-    <a id="myButton" type="button" class="btn btn-primary btn-lg" style="margin-bottom: 40px;vertical-align=middle" href="http://www.google.com.tw">比較最佳取車地點<img src="images/bike.png" height="20" style="margin-left:15px;"/></a>
-
+    
+    <a type="button" id="myButton" class="btn btn-primary btn-md" style="margin-bottom: 45px;vertical-align=middle" href="http://www.google.com.tw">比較最佳取車地點<img src="images/bike.png" height="20" style="margin-left:15px;"/></a>
+    <div class="span5 col-md-2 col-xs-3" id="sandbox-container">
+      <input type="text" class="form-control" style="margin-bottom: 45px">
+    </div>
+    <div class="span5 col-md-2 col-xs-3" id="sandbox-container-2" style="margin-bottom: 45px">
+      <input type="text" class="form-control">
+    </div>
+  
     <div id="map-canvas"/>
     
    
     
   </body>
+  <script>
+  $('#sandbox-container input').datepicker({
+    autoclose: true,
+    todayHighlight: true,
+    toggleActive: true,
+    format: "yyyy/mm/dd"
+
+});
+$('.form-control').datepicker('update',new Date());
+
+</script>
 </html>

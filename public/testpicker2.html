@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link type="text/css" href="stylesheets/bootstrap-datetimepicker.min.css" />
+  </head>
+  <body>
+    <div id="datetimepicker" class="input-append date">
+      <input type="text"></input>
+      <span class="add-on">
+        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+      </span>
+    </div>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
+    
+   
+    <script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="javascripts/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="javascripts/locales_daytime/bootstrap-datetimepicker.zh-TW.js" charset="UTF-8"></script>
+
+    
+    <script type="text/javascript">
+      $('#datetimepicker').datetimepicker({
+        format: 'dd/MM/yyyy hh:mm:ss',
+        language: 'zh-TW',
+        pickDate: false
+      });
+    </script>
+  </body>
+<html>
