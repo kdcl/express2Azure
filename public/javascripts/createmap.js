@@ -1,3 +1,6 @@
+var myData;
+var selectlists = [];
+var sendData={"first":"ian","second":"elliot","id":27};
 function initialize() {
         var latitude = 25.048079,
             longitude = 121.517080,
@@ -149,6 +152,8 @@ function initialize() {
         var contentString = '<h1 id="firstHeading" class="firstHeading">'+data.sna+'</h1>'+
                             '<div id="bodyContent">'+'<div style="">'+'總車輛:'+data.tot+'</div>'+'<div style="">'+'剩餘車輛:'+data.sbi+'</div>';
 
+        
+
         google.maps.event.addListener(infoWindow,'closeclick',function(){
             marker.setIcon("./images/pin2.png");
             // then, remove the infowindows name from the array
@@ -166,18 +171,33 @@ function initialize() {
         (function(marker, data) {
           // Attaching a click event to the current marker
           google.maps.event.addListener(marker, "click", function(e) {
-            if(infoWindow){
-                console.log("ttt");
-            }else{
-                console.log("ssss");
-            }
-
-
             marker.setIcon("./images/pin_select.png");
             infoWindow.setContent(contentString);
             infoWindow.open(map, marker);
+            selectlists.push({name:data.sna, left_bikes:data.sbi});
 
           });
         })(marker, data);
     }
+    $(document).ready(function() {
+        $("#myButton").click(function() {
+            var data = {};
+            data.title = "12132123";
+            data.message = "message";
+            $.ajax({
+                type: "POST",
+                url: "/users",
+                data: data,
+                dataType:'json',
+                success:function(data){
+                    console.log('success');
+                    console.log(data.title);
+                }
+            });
+           // window.location.href = 'users';
+            
+        });
+
+
+    });
 google.maps.event.addDomListener(window, 'load', initialize);
