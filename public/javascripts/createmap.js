@@ -22,11 +22,13 @@ function initialize() {
         var myButton = document.getElementById('myButton');
         var sButton = document.getElementById('sandbox-container');
         var s2Button = document.getElementById('sandbox-container-2');
+        
 
         map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
         map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(sButton);
         map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(s2Button);
         map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(myButton);
+
         
   // Bias the SearchBox results towards current map's viewport.
   map.addListener('bounds_changed', function() {
@@ -186,7 +188,7 @@ function initialize() {
             data.message = "message";
             $.ajax({
                 type: "POST",
-                url: "/users",
+                url: "./users",
                 data: data,
                 dataType:'json',
                 success:function(data){
@@ -194,7 +196,7 @@ function initialize() {
                     console.log(data.title);
                 }
             });
-           // window.location.href = 'users';
+          
             
         });
 

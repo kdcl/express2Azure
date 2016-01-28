@@ -6,7 +6,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   var obj = {};
   console.log('body: ' + JSON.stringify(req.body));
-  //res.send(req.body);
+  res.send(req.body);
 });
 
 
@@ -15,4 +15,5 @@ router.post('/', function(req, res, next) {
   console.log('body: ' + JSON.stringify(req.body));
   res.send(req.body);
 });
+
 module.exports = router;

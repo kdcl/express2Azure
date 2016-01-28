@@ -24,11 +24,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //app.use('/', routes);
 
-app.use('/', routes);
+//app.use('/', routes);
+app.get('/index.html', function (req, res) {
+   res.sendFile( __dirname + "/" + "index.html" );
+});
+
 //app.use('/', express.static(__dirname + '/index.html'));
 app.use('/users', users);
-
-
+/*
+app.post('/users', function(req, res){
+  var obj = {};
+  console.log('body: ' + JSON.stringify(req.body));
+  res.send(req.body);
+});
+*/
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
