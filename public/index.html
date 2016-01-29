@@ -82,12 +82,18 @@
 
       #forInroPin{
         position: absolute;
-        width: 500px;
-        height: 500px;
-        top: 50%;
-        left: 50%;
-        margin-left: -250px;
-        margin-top: -250px;
+        width: 50%;
+        height: 50%;
+        /*top: 50%;
+        left: 50%;*/
+        overflow: auto; /* Recommended in case content is larger than the container */
+        margin: auto; /* Center the item vertically & horizontally */
+        top: 0; left: 0; bottom: 0; right: 0; /* Set the bounds in which to center it, relative to its parent/container */
+        /*-webkit-transform: translate(-50%,-50%);
+        -moz-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%,-50%);*/
 
       }
 
