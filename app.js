@@ -35,6 +35,7 @@ app.get('/index.html', function (req, res) {
 //app.use('/', express.static(__dirname + '/index.html'));
 //app.use('/users', users);
 app.get('/compare-bike', function(req, res){
+  
 
   console.log("compate-bike :"+obj.stations[0].id);
   for(var i = 0 ; i < obj.stations.length ; i++){
@@ -49,9 +50,9 @@ app.get('/compare-bike', function(req, res){
 
 
     });
-       res.end();
+       
    }
-
+res.end();
 //   querydb(obj.stations[0].id, function(err, results) {
 //     if(err) return console.log(err);
 //     console.log(results.length);
