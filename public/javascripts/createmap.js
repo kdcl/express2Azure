@@ -1,5 +1,6 @@
 var myData;
-var selectlists = [];
+var selectlists = new Array();
+var selectlists_name = new Array();
 var sendData={"first":"ian","second":"elliot","id":27};
 function initialize() {
         var latitude = 25.048079,
@@ -22,14 +23,14 @@ function initialize() {
         var myButton = document.getElementById('myButton');
         var sButton = document.getElementById('sandbox-container');
         var s2Button = document.getElementById('sandbox-container-2');
-        
+        var testButton = document.getElementById('myButton_forTest');
 
         map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
         map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(sButton);
         map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(s2Button);
         map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(myButton);
 
-        
+        map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(testButton);
   // Bias the SearchBox results towards current map's viewport.
   map.addListener('bounds_changed', function() {
     searchBox.setBounds(map.getBounds());
@@ -165,6 +166,8 @@ function initialize() {
             marker.setIcon("./images/pin_select.png");
             infoWindow.setContent(contentString);
             infoWindow.open(map, marker);
+            selectlists.push({"name":data.sna, "left_bikes":data.sbi, "day":data.mday, "id":data.sno});
+            selectlists_name.push(data.sno);
 
         });
 
@@ -176,24 +179,44 @@ function initialize() {
             marker.setIcon("./images/pin_select.png");
             infoWindow.setContent(contentString);
             infoWindow.open(map, marker);
-            selectlists.push({name:data.sna, left_bikes:data.sbi});
-
+            
           });
         })(marker, data);
     }
+    
     $(document).ready(function() {
-        $("#myButton").click(function() {
-            var data = {};
-            data.title = "12132123";
-            data.message = "message";
+        $("#myButton_forTest").click(function() {
+
+            console.log("origin"+ selectlists.length);
+            // console.log( "stringify" + JSON.stringify(selectlists));
+
+            var jsonData = '{"stations":[]}';
+            var obj = JSON.parse(jsonData);
+            for(var i=0;i<selectlists.length;i++){
+                obj['stations'].push(selectlists[i]);
+            }
+            
+
+            var jsondatastringify = JSON.stringify(obj);
+            // jsonparsedata= JSON.parse(jsondata);
+            console.log(jsondatastringify);
+            // console.log("object "+ JSON.parse(jsondatastringify));
+
+            // console.log(jsonparsedata["0"].name);
+            //console.log("object "+ JSON.parse(jsondata));
+
+            // // var data = {};
+            // // data.title = "12132123";
+            // // data.message = "message";
             $.ajax({
                 type: "POST",
-                url: "./users",
-                data: data,
-                dataType:'json',
+                url: "http://localhost:3000/users",
+                data: jsondatastringify,
+                contentType: 'application/json',
+                dataType: 'json',
                 success:function(data){
-                    console.log('success');
-                    console.log(data.title);
+                   window.location.href = "/compare-bike";
+
                 }
             });
           
@@ -202,4 +225,38 @@ function initialize() {
 
 
     });
+/*
+$(document).ready(function() {
+    $("#myButton_forTest").click(function() {
+        console.log(selectlists_name[0]);
+        
+        var queryCollection = function(documentId, callback) {
+            var querySpec = {
+                query: 'SELECT * FROM root r WHERE r.sno=@sno',
+                parameters: [{
+                    name: '@sno',
+                    value: documentId
+                }]
+            };
+
+            var collectionUri = "dbs/" + config.dbDefinition.id + "/colls/" + config.collDefinition.id;
+
+            client.queryDocuments(collectionUri, querySpec).toArray(function(err, results) {
+                if(err) 
+                return callback(err);
+                callback(null, results);
+              });
+            };
+
+            queryCollection(selectlists[0], function(err, results) {
+                if(err) return console.log(err);
+                console.log(results.length);
+                console.log(typeof(results));
+                // console.log('Query results:\n' + JSON.stringify(results, null, '\t') + '\n');
+                console.log('Query results:\n' + results[0].mday +'\n');
+            });
+          
+            
+    });
+});*/
 google.maps.event.addDomListener(window, 'load', initialize);

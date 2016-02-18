@@ -1,0 +1,22 @@
+<h1>Display {{title}}</h1>
+<table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>地名</th>
+                    <th>總數</th>
+                    <th>剩餘</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {{#each title}}
+                <tr>
+                    <td>{{ this.name }}</td>
+                    <td>{{ this.left_bikes }}</td>
+                    <td>{{ this.id }}</td>
+                    
+
+
+                </tr>
+                {{/each}}
+                </tbody>
+            </table>

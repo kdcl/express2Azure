@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+@import url(http://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+.axis path, .axis line {
+    fill: none;
+    shape-rendering: crispedges;
+    stroke: #000000;
+}
+.grid .tick {
+    stroke: grey;
+    opacity: 0.5 !important;
+}
+.bar rect {
+        fill: #da3a2a;
+    }
+
+    .bar text.value {
+        fill: black;
+    }
+    circle {
+    fill: #da3a2a;
+    fill-opacity: 0.2;
+}
+.tooltip {
+    background: none repeat scroll 0 0 #da3a2a;
+    border: 0 solid #ffffff;
+    color: #ffffff;
+    font: 12px sans-serif;
+    height: 38px;
+    padding: 2px;
+    pointer-events: none;
+    position: absolute;
+    text-align: center;
+    width: 160px;
+}
+.circle {
+  width: 28px;
+  height: 28px;
+  background: #FFF;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
+  color:#000;
+  position: absolute;
+  top: 50%;
+  margin-top: -14px;
+  margin-left: 10px;
+}
+
+.circle span{
+  position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-top: -6px;
+}
+.rule {
+    height: 90%;
+    position: absolute;
+    border-right: 1px dotted #000;
+    text-align: right;
+}
+.word{
+  position: absolute;
+    font-family: cwTeXYen;
+    font-size: 15px;
+    top: -1px;
+    left: 25%;
+}
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.js"></script>
+<script>
+
+var margin = {top: 20, right: 80, bottom: 30, left: 50},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var parseDate = d3.time.format("%Y%m%d%I").parse;
+
+var x = d3.time.scale()
+    .range([0, width]);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var color = d3.scale.ordinal()
+      .domain(["station1", "station2", "station3","station4"])
+      .range(["#21739e", "#e3a826" , "#65942e","a75f15"]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+var line = d3.svg.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.temperature); });
+
+
+var div = d3.select('body').append("div") // declare the properties for the div used for the tooltips
+  .attr("class", "tooltip")       // apply the 'tooltip' class
+  .style("opacity", 0);
+
+
+var divinloop = d3.selectAll(".tooltip").append("div")
+                .attr("class","circle");
+
+
+var divword = d3.selectAll(".tooltip").append("div")
+                .attr("class","word");
+
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+d3.tsv("data_3.tsv", function(error, data) {
+  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
+
+  data.forEach(function(d) {
+    d.date = parseDate(d.date);
+  });
+
+  var cities = color.domain().map(function(name) {
+    return {
+      name: name,
+      values: data.map(function(d) {
+        return {date: d.date, temperature: +d[name], name:name};
+      })
+    };
+  });
+
+  x.domain(d3.extent(data, function(d) { return d.date; }));
+
+  y.domain([
+    d3.min(cities, function(c) { return d3.min(c.values, function(v) { return v.temperature; }); }),
+    d3.max(cities, function(c) { return d3.max(c.values, function(v) { return v.temperature; }); })
+  ]);
+
+
+  svg.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 0)
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .text("可借車位");
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  // svg.append("g")
+  //     .attr("class", "y axis")
+  //     .call(yAxis)
+
+  var city = svg.selectAll(".city")
+      .data(cities)
+      .enter().append("g")
+      .attr("class", "city");
+
+
+  city.append("path")
+      .attr("class", "line")
+      .attr("d", function(d) { return line(d.values); })
+      .style("stroke", function(d) { return color(d.name); });
+
+  // city.append("text")
+  //     .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
+  //     .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")"; })
+  //     .attr("x", 7)
+  //     .attr("dy", ".35em")
+  //     .text(function(d) {return d.name; });
+
+var legend = svg.append('g')
+                .attr('class','legend')
+                .attr('x',0)
+                .attr('y',0)
+                .attr('height',100)
+                .attr('width',100);
+
+legend.selectAll('g').data(cities)
+      .enter()
+      .append('g')
+      .attr('class','lefttooltip')
+      .style('fill','#ffffff')
+      .each(function(d, i) {
+        var g = d3.select(this);
+        g.append("rect")
+          .attr("x", 7)
+          .attr("y", i*30-20)
+          .attr("width", 100)
+          .attr("height", 25)
+          .style("fill", function(d){return color(d.name);});
+        
+        g.append("text")
+          .attr("x", 20)
+          .attr("y", i * 30-3)
+          .attr("height",25)
+          .attr("width",100)
+          .text(function(d){return d.name;});
+
+      });
+
+  svg.selectAll("g.dot")
+        .data(cities)
+        .enter().append("g")
+        .attr("class", "dot")
+        .selectAll("circle")
+        .data(function(d) { 
+          //console.log(cities);
+          //console.log(d.name);
+          return d.values; 
+        })
+        .enter().append("circle")
+        .attr("r", 5)
+        .attr("cx", function(d,i) {
+          return x(d.date); })
+        .attr("cy", function(d,i) { return y(d.temperature); })
+// Tooltip stuff after this
+      .on("mouseover", function(d) {              // when the mouse goes over a circle, do the following
+      div.transition()                  // declare the transition properties to bring fade-in div
+        .duration(200)                  // it shall take 200ms
+        .style("opacity", .9);           // and go all the way to an opacity of .9
+      divword.style("margin","0 auto 0 20px");
+      divword.html("<p>"+d.name+"</p>");
+      divinloop.html("<span>"+d.temperature+"</span>");// add the text of the tooltip as html 
+      div.style("left", (d3.event.pageX+15) + "px")     // move it in the x direction 
+      div.style("top", (d3.event.pageY - 28) + "px");  // move it in the y direction
+      })                          // 
+    .on("mouseout", function(d) {             // when the mouse leaves a circle, do the following
+      div.transition()                  // declare the transition properties to fade-out the div
+        .duration(500)                  // it shall take 500ms
+        .style("opacity", 0);             // and go all the way to an opacity of nil
+    });   
+    
+});
+
+</script>
