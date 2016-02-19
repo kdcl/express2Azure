@@ -215,7 +215,7 @@ function initialize() {
                 contentType: 'application/json',
                 dataType: 'json',
                 success:function(data){
-                   window.location.href = "/compare-bike";
+                   // window.location.href = "/compare-bike";
 
                 }
             });

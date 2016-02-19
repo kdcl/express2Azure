@@ -9,14 +9,16 @@
                 </thead>
                 <tbody>
                     {{#each title}}
+                      {{#each this}}  
                 <tr>
-                    <td>{{ this.name }}</td>
-                    <td>{{ this.left_bikes }}</td>
-                    <td>{{ this.id }}</td>
+                    <td>{{ this.sbi }}</td>
+                    <td>{{ this.sna }}</td>
+                    <td>{{ this.mday }}</td>
                     
 
 
                 </tr>
+                    {{/each}}
                 {{/each}}
                 </tbody>
             </table>
