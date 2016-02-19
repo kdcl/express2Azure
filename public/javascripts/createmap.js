@@ -210,12 +210,16 @@ function initialize() {
             // // data.message = "message";
             $.ajax({
                 type: "POST",
-                url: "http://localhost:3000/users",
+                url: __dirname+"./users",
                 data: jsondatastringify,
                 contentType: 'application/json',
                 dataType: 'json',
                 success:function(data){
-                   // window.location.href = "/compare-bike";
+                   setTimeout(function () {
+                    // your action here
+                    window.location.href = "/compare-bike";
+                    }, 500);
+                    
 
                 }
             });

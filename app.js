@@ -34,19 +34,10 @@ app.get('/index.html', function (req, res) {
 
 //app.use('/', express.static(__dirname + '/index.html'));
 //app.use('/users', users);
-app.get('/compare-bike', function(req, res){
-  console.log(results_obj);
-  for(var i=0;i<results_obj.length;i++){
-    console.log(results_obj[i][0].sna);
-
-  }
-  res.render('compare-bike', { title: results_obj });
-
-  
-});
 
 
-app.post('/users', function(req, res){
+
+app.post('/users', function(req, res,next){
   // console.log('body POST: ' + req.body);
   // obj = req.body;
   // console.log(JSON.parse(obj));
@@ -73,9 +64,11 @@ app.post('/users', function(req, res){
        
 
   // res.send(JSON.stringify(req.body));
-  console.log("dfjklja;dlfj"+results);
-  // res.send(results);
+  // console.log("dfjklja;dlfj"+results);
   res.end();
+  // res.send(results);
+  // res.redirect('./');
+  // next();
   // res.json()
 
 });
@@ -83,6 +76,18 @@ app.post('/users', function(req, res){
 app.get('/users', function(req, res){
   console.log("GET METHOD");
   res.send(results_obj);
+
+});
+
+app.get('/compare-bike', function(req, res){
+  console.log(results_obj);
+  for(var i=0;i<results_obj.length;i++){
+    console.log("rrrrrrr"+results_obj[i][0].sna);
+
+  }
+  res.render('compare-bike', { title: results_obj });
+
+  
 });
 
 // catch 404 and forward to error handler
