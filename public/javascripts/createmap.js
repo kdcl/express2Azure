@@ -210,7 +210,7 @@ function initialize() {
             // // data.message = "message";
             $.ajax({
                 type: "POST",
-                url: __dirname+"./users",
+                url: "./users",
                 data: jsondatastringify,
                 contentType: 'application/json',
                 dataType: 'json',
