@@ -5,9 +5,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var documentdb = require("documentdb");
+var async = require("async");
 var config = require("./config"); 
 var routes = require('./routes/index');
 var querydb = require('./model/querydb');
+
+
 
 //var users = require('./routes/users');
 var results_obj=[];
@@ -47,20 +50,7 @@ app.post('/users', function(req, res,next){
   console.log('body: ' + JSON.stringify(req.body));
  //console.log('bobj: ' + obj[0].left_bikes);
   // res.end();
-  for(var i = 0 ; i < obj.stations.length ; i++){
-       querydb.querydbFunc(obj.stations[i].id,"20160219",function(err, results) {
-        if(err) return console.log(err);
-        console.log(results[0].sna);
-        // console.log(typeof(results));
-        // console.log('Query results:\n' + JSON.stringify(results, null, '\t') + '\n');
-        // console.log('Query results:\n' + results[i].sna +'\n');
-        // console.log('Query results[post user]:\n' + results[1].sna +'\n');
-        results_obj.push(results); 
-        // res.render('compare-bike', { title: results[1].sna });
-
-
-    });
-  }
+  
        
 
   // res.send(JSON.stringify(req.body));
@@ -79,13 +69,62 @@ app.get('/users', function(req, res){
 
 });
 
-app.get('/compare-bike', function(req, res){
-  console.log(results_obj);
-  for(var i=0;i<results_obj.length;i++){
-    console.log("rrrrrrr"+results_obj[i][0].sna);
+app.use('/compare-bike',function(req,res,next){
+  console.log("before use query........");
+  // async.waterfall([
+  //      function(callback) {
+  //       var findresult = 0;
+  //       for(var i = 0 ; i < obj.stations.length ; i++){
+  //         querydb.querydbFunc(obj.stations[i].id,"20160219",function(err,results){
+  //           if(err) return console.log(err);
+  //           results_obj.push(results);
+  //           if (++inserted == collection.length) {
+  //             callback();
+  //           }
+
+
+  //         });
+  //       }
+        
+  //       // callback(null, 'one', 'two');
+  //   }
+
+
+  //   ],function(err,result){
+  //     if(err) return console.log(err);
+  //     console.log(result);
+  //     // next();
+  //   });
+  var findresult = 0; 
+  for(var i = 0 ; i < obj.stations.length ; i++){
+       querydb.querydbFunc(obj.stations[i].id,"20160219",function(err, results) {
+        if(err) return console.log(err);
+        results_obj.push(results);
+        // console.log("compare bike page:"+results[0].sna);
+        console.log("query........");
+        if(++findresult == obj.stations.length){
+          next()
+          console.log("go to Render.......");
+        }
+        // res.render('compare-bike', { title: results });
+        //next();
+
+    });
 
   }
-  res.render('compare-bike', { title: results_obj });
+  
+  // console.log("use query........");
+  // next();
+
+});
+
+app.get('/compare-bike', function(req, res){
+
+
+  
+  console.log("render........");
+  res.render('compare-bike', { title: results_obj});
+  // res.end();
 
   
 });
