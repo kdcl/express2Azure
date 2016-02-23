@@ -2,6 +2,7 @@ var express = require('express');
 var request = require('request');
 var fs = require("fs");
 var zlib = require('zlib');
+var querydb = require('../model/querydb');
 var router = express.Router();
 
 var json;
@@ -27,6 +28,8 @@ request.get(options, function (error, response, body) {
         json = JSON.parse(json_string);
         fs.writeFile( __dirname+"/../public/javascripts/YouBikeTP.json", json_string);
         console.log("get File");
+        querydb.createdocumentFunc();
+
       });
     } else {
       // Response is not gzipped

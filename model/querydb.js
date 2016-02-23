@@ -43,7 +43,7 @@ client.queryDocuments(collectionUri, querySpec).toArray(function(err, results) {
   });
 }
 createdocumentFunc = function(){
-  var jsonObj = require("../public/javascript/YouBikeTP.json");
+  var jsonObj = require("../public/javascripts/YouBikeTP.json");
   var collectionUri = "dbs/" + config.dbDefinition.id + "/colls/" + config.collDefinition.id;
   var youbikelist = Object.keys(jsonObj.retVal).map(function(value){
                                                       return jsonObj.retVal[value]});
