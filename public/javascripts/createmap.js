@@ -186,10 +186,14 @@ function initialize() {
     
     $(document).ready(function() {
         $("#myButton_forTest").click(function() {
-
-            console.log("origin"+ selectlists.length);
+            // console.log("Time is "+ $('#sandbox-container input').val());
+            // console.log("date is "+ $("#sandbox-container input").data('datepicker').getFormattedDate('yyyymmdd'));
+            // console.log("date is "+ $("#datetimepicker3").data('DateTimePicker').val);
+            var time = $("#datetimepicker3").val();
+            time = time.replace(/:/g, '');
+            // console.log(time);
+            // console.log("origin"+ selectlists.length);
             // console.log( "stringify" + JSON.stringify(selectlists));
-
             var jsonData = '{"stations":[]}';
             var obj = JSON.parse(jsonData);
             for(var i=0;i<selectlists.length;i++){
@@ -228,8 +232,21 @@ function initialize() {
           
             
         });
-
-
+        $('#sandbox-container input').datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            toggleActive: true,
+            format: "yyyy-mm/dd"
+        });
+        $('#sandbox-container input').datepicker('update',new Date());
+        $(function () {
+          var dateNow = new Date();
+            $('#datetimepicker3').datetimepicker({
+                // format: 'LT',
+                format: 'HH:mm',
+                defaultDate:dateNow
+            });
+        });
     });
 /*
 $(document).ready(function() {
