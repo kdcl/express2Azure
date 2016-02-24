@@ -43,15 +43,18 @@ client.queryDocuments(collectionUri, querySpec).toArray(function(err, results) {
   });
 }
 createdocumentFunc = function(){
-  var jsonObj = require("../public/javascripts/YouBikeTP.json");
+  var jsonObj = require(__dirname+"/../public/javascripts/YouBikeTP.json");
   var collectionUri = "dbs/" + config.dbDefinition.id + "/colls/" + config.collDefinition.id;
   var youbikelist = Object.keys(jsonObj.retVal).map(function(value){
-                                                      return jsonObj.retVal[value]});
-  for(i = 0;i < youbikelist;i++){
-    client.createDocument(collectionUri. youbikelist[i], function(err, document){
+                                                    return jsonObj.retVal[value]});
+  for(var j = 0;j < youbikelist.length;j+=1){
+    client.createDocument(collectionUri, youbikelist[j], function(err, document){
       if(err) return console.log(err);
+      
+      // console.log(youbikelist[j]);
       console.log("Document created with content: ", document);
     });
+    // console.log("document is "+ youbikelist[i]);
   }
 }
 exports.querydbFunc = querydbFunc;

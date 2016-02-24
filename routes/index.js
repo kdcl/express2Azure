@@ -26,9 +26,13 @@ request.get(options, function (error, response, body) {
       zlib.gunzip(body, function(err, dezipped) {
         var json_string = dezipped.toString('utf-8');
         json = JSON.parse(json_string);
-        fs.writeFile( __dirname+"/../public/javascripts/YouBikeTP.json", json_string);
-        console.log("get File");
-        querydb.createdocumentFunc();
+        fs.writeFile( __dirname+"/../public/javascripts/YouBikeTP.json", json_string,function(err){
+          if(err) console.log(err);
+          console.log("get File"); 
+          // querydb.createdocumentFunc();
+        });
+        
+        // querydb.createdocumentFunc();
 
       });
     } else {
@@ -40,7 +44,8 @@ request.get(options, function (error, response, body) {
 });
 }
 
-setInterval(get_youbikeUpdate, 1000*60*1);//1000*60*1
+// setInterval(get_youbikeUpdate, 1000*60*1);//1000*60*1
+setInterval(get_youbikeUpdate, 1000*5);//1000*60*1
 
 
 function readJsonFile(filename, callback){
@@ -56,11 +61,6 @@ function readJsonFile(filename, callback){
     }
   });
 }
-
-fs.watchFile(__dirname+"/../public/javascripts/YouBikeTP.json", function(curr,prev) {
-    console.log("file Change");
-    
-});
 
 
 /* GET home page. */
