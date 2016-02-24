@@ -70,6 +70,7 @@ app.get('/users', function(req, res){
 
 app.use('/compare-bike',function(req,res,next){
   console.log("before use query........");
+  console.log(obj.date);
   // async.waterfall([
   //      function(callback) {
   //       var findresult = 0;

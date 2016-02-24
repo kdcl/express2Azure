@@ -187,15 +187,19 @@ function initialize() {
     $(document).ready(function() {
         $("#myButton_forTest").click(function() {
             // console.log("Time is "+ $('#sandbox-container input').val());
-            // console.log("date is "+ $("#sandbox-container input").data('datepicker').getFormattedDate('yyyymmdd'));
+            var date = $("#sandbox-container input").data('datepicker').getFormattedDate('yyyymmdd');
             // console.log("date is "+ $("#datetimepicker3").data('DateTimePicker').val);
             var time = $("#datetimepicker3").val();
-            time = time.replace(/:/g, '');
-            // console.log(time);
+            // time = time.replace(/:/g, '');
+            var res = date.concat(time);
+            res = res.split(":")[0];
+            console.log(res);
             // console.log("origin"+ selectlists.length);
             // console.log( "stringify" + JSON.stringify(selectlists));
-            var jsonData = '{"stations":[]}';
+            var jsonData = '{"stations":[],"date":""}';
             var obj = JSON.parse(jsonData);
+            obj["date"] = res;
+            console.log(obj);
             for(var i=0;i<selectlists.length;i++){
                 obj['stations'].push(selectlists[i]);
             }
