@@ -17,35 +17,38 @@ var options = {
 
 function get_youbikeUpdate(){
 
-request.get(options, function (error, response, body) {
- 
-  if (!error && response.statusCode == 200) {
-    // If response is gzip, unzip first
-    var encoding = response.headers['content-encoding']
-    if (encoding && encoding.indexOf('gzip') >= 0) {
-      zlib.gunzip(body, function(err, dezipped) {
-        var json_string = dezipped.toString('utf-8');
-        json = JSON.parse(json_string);
-        fs.writeFile( __dirname+"/../public/javascripts/YouBikeTP.json", json_string,function(err){
-          if(err) console.log(err);
-          console.log("get File"); 
+  request.get(options, function (error, response, body) {
+   
+    if (!error && response.statusCode == 200) {
+      // If response is gzip, unzip first
+      var encoding = response.headers['content-encoding']
+      if (encoding && encoding.indexOf('gzip') >= 0) {
+        zlib.gunzip(body, function(err, dezipped) {
+          var json_string = dezipped.toString('utf-8');
+          json = JSON.parse(json_string);
+          fs.writeFile( __dirname+"/../public/javascripts/YouBikeTP.json", json_string,function(err){
+            if(err) console.log(err);
+            console.log("get File"); 
+            // querydb.createdocumentFunc();
+          });
+          
           // querydb.createdocumentFunc();
-        });
-        
-        // querydb.createdocumentFunc();
 
-      });
-    } else {
-      // Response is not gzipped
-      console.log("Response is not gzipped");
+        });
+      } else {
+        // Response is not gzipped
+        console.log("Response is not gzipped");
+      }
     }
-  }
- 
-});
+   
+  });
 }
 
-setInterval(get_youbikeUpdate, 1000*60*1);//1000*60*1
-// setInterval(get_youbikeUpdate, 1000*5);//1000*60*1
+setInterval(get_youbikeUpdate, 1000*60*5);//1000*60*1
+setInterval(writedatatodb, 1000*60*10);//1000*60*1
+function writedatatodb(){
+  querydb.createdocumentFunc();
+}
 
 
 function readJsonFile(filename, callback){

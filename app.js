@@ -97,7 +97,7 @@ app.use('/compare-bike',function(req,res,next){
   //   });
   var findresult = 0; 
   for(var i = 0 ; i < obj.stations.length ; i++){
-       querydb.querydbFunc(obj.stations[i].id,"20160219",function(err, results) {
+       querydb.querydbFunc(obj.stations[i].id,obj.date,function(err, results) {
         if(err) return console.log(err);
         results_obj.push(results);
         // console.log("compare bike page:"+results[0].sna);
@@ -123,6 +123,7 @@ app.get('/compare-bike', function(req, res){
 
   
   console.log("render........");
+  console.log(results_obj);
   res.render('compare-bike', { title: results_obj});
   // res.end();
 

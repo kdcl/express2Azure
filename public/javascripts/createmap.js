@@ -198,7 +198,7 @@ function initialize() {
             // console.log( "stringify" + JSON.stringify(selectlists));
             var jsonData = '{"stations":[],"date":""}';
             var obj = JSON.parse(jsonData);
-            obj["date"] = res;
+            obj["date"] = date;
             console.log(obj);
             for(var i=0;i<selectlists.length;i++){
                 obj['stations'].push(selectlists[i]);
