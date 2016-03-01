@@ -13,7 +13,7 @@ var databaseDefinition = {
 };
  
 var collectionDefinition = { 
-    "id": "youbikecollection" 
+    "id": "youbikecollections" 
 };
  
 
@@ -57,8 +57,20 @@ createdocumentFunc = function(){
     // console.log("document is "+ youbikelist[i]);
   }
 }
+
+countCloseTimer = function(){
+  querydbFunc("0001","20160226",function(err, results) {
+    if(err) return console.log(err);
+    // console.log(results.length);
+    // console.log(typeof(results));
+    // console.log('Query results:\n' + JSON.stringify(results, null, '\t') + '\n');
+    console.log('Query results:\n' + results[1].sna +'\n');
+    });
+}
 exports.querydbFunc = querydbFunc;
 exports.createdocumentFunc = createdocumentFunc; 
+exports.countCloseTimer = countCloseTimer; 
+
 
 
 // module.exports = {

@@ -4,6 +4,7 @@ var fs = require("fs");
 var zlib = require('zlib');
 var querydb = require('../model/querydb');
 var router = express.Router();
+var totalnum = 1;
 
 var json;
 var options = {
@@ -16,7 +17,6 @@ var options = {
 };
 
 function get_youbikeUpdate(){
-
   request.get(options, function (error, response, body) {
    
     if (!error && response.statusCode == 200) {
@@ -26,7 +26,8 @@ function get_youbikeUpdate(){
         zlib.gunzip(body, function(err, dezipped) {
           var json_string = dezipped.toString('utf-8');
           json = JSON.parse(json_string);
-          fs.writeFile( __dirname+"/../public/javascripts/YouBikeTP.json", json_string,function(err){
+          totalnum+=1;
+          fs.writeFile( __dirname+"/../public/javascripts/0301/YouBikeTP_"+totalnum+".json", json_string,function(err){
             if(err) console.log(err);
             console.log("get File"); 
             // querydb.createdocumentFunc();
@@ -44,10 +45,26 @@ function get_youbikeUpdate(){
   });
 }
 
-setInterval(get_youbikeUpdate, 1000*60*5);//1000*60*1
-setInterval(writedatatodb, 1000*60*10);//1000*60*1
+setInterval(get_youbikeUpdate, 1000*60*10);//1000*60*1
+// setInterval(writedatatodb, 1000*60*10);//1000*60*1
+// writedatatodb();
+// var i = 0;
+// var total;
+// setInterval(function() {
+//     i++;
+//     console.log('still alive!' + i);
+// }, 1000);
+
+// function writedatatodb(){
+//   i++;
+//   total = i*5;
+//   querydb.countCloseTimer();
+//   console.log('still alive!' + total);
+  
+// }
 function writedatatodb(){
   querydb.createdocumentFunc();
+  
 }
 
 

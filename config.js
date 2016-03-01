@@ -4,7 +4,7 @@ config.endpoint = "https://testyoubikedb.documents.azure.com:443/";
 config.authKey = "jnjYPbVWgXVmZ2/9iHvGvEeLVvJ2DP0hUbn+Xwt3keay5NfRgnjXlPaNdMHZAUNUmMWTzfRaISr+SunXIWqbuw==";
 
 config.dbDefinition = {"id": "youbikes"};
-config.collDefinition = {"id": "youbikecollection"};
+config.collDefinition = {"id": "youbikecollections"};
 
 var documents = {
   "Andersen": {

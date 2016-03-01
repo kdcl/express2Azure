@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var timeout = require('connect-timeout');
 var documentdb = require("documentdb");
 var config = require("./config"); 
 var routes = require('./routes/index');
@@ -14,6 +15,7 @@ var querydb = require('./model/querydb');
 //var users = require('./routes/users');
 var results_obj=[];
 var app = express();
+app.use(timeout('2h'));
 var obj = {};
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -66,6 +68,19 @@ app.get('/users', function(req, res){
   console.log("GET METHOD");
   res.send(results_obj);
 
+});
+
+app.listen(3000, 'localhost', function() {
+    console.log("3000 ~ ~");
+}).on('error', function(err){
+    console.log('on error handler');
+    console.log(err);
+});
+
+
+process.on('uncaughtException', function(err) {
+    console.log('process.on handler');
+    console.log(err);
 });
 
 app.use('/compare-bike',function(req,res,next){
@@ -128,6 +143,12 @@ app.get('/compare-bike', function(req, res){
   // res.end();
 
   
+});
+
+app.get('/d3_test', function(req, res){
+  // res.render('index', { title: 'Express' });
+  res.render('d3_test', { title: 'd3~~~~~~~test'});
+  // res.end();
 });
 
 // catch 404 and forward to error handler
