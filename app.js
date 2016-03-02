@@ -6,10 +6,30 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var timeout = require('connect-timeout');
 var documentdb = require("documentdb");
+var hbs = require('hbs'); 
 var config = require("./config"); 
 var routes = require('./routes/index');
 var querydb = require('./model/querydb');
-
+var jsonCircles = [
+                    {
+                      "x_axis": 30,
+                      "y_axis": 30,
+                      "radius": 20,
+                      "color" : "green"
+                    },
+                    {
+                      "x_axis": 70,
+                      "y_axis": 70,
+                      "radius": 20,
+                      "color" : "purple"
+                    }, 
+                    {
+                      "x_axis": 110,
+                      "y_axis": 100,
+                      "radius": 20,
+                      "color" : "red"
+                    }
+                  ];
 
 
 //var users = require('./routes/users');
@@ -20,6 +40,10 @@ var obj = {};
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+
+hbs.registerHelper('json', function(context) {
+    return JSON.stringify(context);
+});
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -147,7 +171,7 @@ app.get('/compare-bike', function(req, res){
 
 app.get('/d3_test', function(req, res){
   // res.render('index', { title: 'Express' });
-  res.render('d3_test', { title: 'd3~~~~~~~test'});
+  res.render('d3_test', {title:  jsonCircles});
   // res.end();
 });
 
