@@ -10,26 +10,77 @@ var hbs = require('hbs');
 var config = require("./config"); 
 var routes = require('./routes/index');
 var querydb = require('./model/querydb');
-var jsonCircles = [
-                    {
-                      "x_axis": 30,
-                      "y_axis": 30,
-                      "radius": 20,
-                      "color" : "green"
-                    },
-                    {
-                      "x_axis": 70,
-                      "y_axis": 70,
-                      "radius": 20,
-                      "color" : "purple"
-                    }, 
-                    {
-                      "x_axis": 110,
-                      "y_axis": 100,
-                      "radius": 20,
-                      "color" : "red"
-                    }
-                  ];
+var jsonCircles = [ [ { sno: '0177',
+                        sna: '葫蘆國小',
+                        tot: '40',
+                        sbi: '15',
+                        sarea: '士林區',
+                        mday: '20160227213431',
+                        lat: '25.082538',
+                        lng: '121.507495',
+                        ar: '環河北路三段/葫蘆街(東北側)',
+                        sareaen: 'Shilin Dist.',
+                        snaen: 'Hulu Elementary School',
+                        aren: 'Sec. 3, Huanhe N. Rd./Hulu St',
+                        bemp: '25',
+                        act: '1',
+                        id: '724fdc51-749b-b9d8-acbf-10c9c58',
+                        rid: '7U9xAOM9NQCPIgAAAAAAAA==',
+                        self: 'dbs/7U9xAA==/colls/7U9xAOM9N',
+                        etag: '"0000501e-0000-0000-0000-56d',
+                        ts: 1456580514,
+                        attachments: 'attachments/',
+                        x_axis:30,
+                        y_axis:30,
+                        radius: 20,
+                        color: 'green' } ],
+                         [ { sno: '0207',
+      sna: '福安國中',
+      tot: '30',
+      sbi: '20',
+      sarea: '士林區',
+      mday: '20160227213418',
+      lat: '25.103242',
+      lng: '121.487477',
+      ar: '延平北路七段250號前人行道(福安國',
+      sareaen: 'Shilin Dist.',
+      snaen: 'Fu-an Junior Hight School',
+      aren: 'No.250, Sec. 7, Yanping N. Rd',
+      bemp: '10',
+      act: '1',
+      id: '43aecb86-f217-8158-d56d-de53568',
+      _rid: '7U9xAOM9NQBmIgAAAAAAAA==',
+      _self: 'dbs/7U9xAA==/colls/7U9xAOM9N',
+      _etag: '0000271e-0000-0000-0000-56d',
+      _ts: '1456580514',
+      _attachments: 'attachments/', x_axis:70,
+                        y_axis:70,
+                        radius: 20,
+                        color: 'purple' } ],
+                      [ { sno: '0188',
+                          sna: '社子國小',
+                          tot: '60',
+                          sbi: '22',
+                          sarea: '士林區',
+                          mday: '20160227213434',
+                          lat: '25.090293',
+                          lng: '121.501890',
+                          ar: '延平北路六段/社中街(社子國小對面',
+                          sareaen: 'Shilin Dist.',
+                          snaen: 'Taipei Municipal Shezi Eleme',
+                          aren: 'Sec. 6, Yanping N. Rd./Shezho',
+                          bemp: '38',
+                          act: '1',
+                          id: 'ef4da9a3-9d2a-7de8-e084-3a5dc8e',
+                          _rid: '7U9xAOM9NQBjIgAAAAAAAA==',
+                          _self: 'dbs/7U9xAA==/colls/7U9xAOM9N',
+                          _etag: '"0000241e-0000-0000-0000-56d',
+                          _ts: 1456580514,
+                          _attachments: 'attachments/', x_axis:110,
+                        y_axis:100,
+                        radius: 20,
+                        color: 'red' } ] 
+                    ];
 
 
 //var users = require('./routes/users');
@@ -136,7 +187,8 @@ app.use('/compare-bike',function(req,res,next){
   //   });
   var findresult = 0; 
   for(var i = 0 ; i < obj.stations.length ; i++){
-       querydb.querydbFunc(obj.stations[i].id,obj.date,function(err, results) {
+       querydb.querydbFunc(obj.stations[i].id,"2016022721",function(err, results) {
+        // querydb.querydbFunc(obj.stations[i].id,obj.date,function(err, results) {
         if(err) return console.log(err);
         results_obj.push(results);
         // console.log("compare bike page:"+results[0].sna);
