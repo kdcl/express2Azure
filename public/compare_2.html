@@ -93,7 +93,7 @@ body {
 <body>
 <script src="http://d3js.org/d3.v3.js"></script>
 <script>
-
+var dataset;
 var margin = {top: 20, right: 80, bottom: 30, left: 50},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
@@ -145,7 +145,7 @@ var svg = d3.select("body").append("svg")
 
 d3.tsv("data_3.tsv", function(error, data) {
   color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
-
+  dataset = data;
   data.forEach(function(d) {
     d.date = parseDate(d.date);
   });
@@ -158,6 +158,7 @@ d3.tsv("data_3.tsv", function(error, data) {
       })
     };
   });
+  console.log("cities is "+cities[0]["values"][0]["date"]);
 
   x.domain(d3.extent(data, function(d) { return d.date; }));
 
