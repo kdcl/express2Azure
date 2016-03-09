@@ -27,7 +27,7 @@ function get_youbikeUpdate(){
           var json_string = dezipped.toString('utf-8');
           json = JSON.parse(json_string);
           totalnum+=1;
-          fs.writeFile( __dirname+"/../public/javascripts/0302/YouBikeTP_"+totalnum+".json", json_string,function(err){
+          fs.writeFile( __dirname+"/../public/javascripts/0308/YouBikeTP_"+totalnum+".json", json_string,function(err){
             if(err) console.log(err);
             console.log("get File"); 
             // querydb.createdocumentFunc();
@@ -45,7 +45,7 @@ function get_youbikeUpdate(){
   });
 }
 
-setInterval(get_youbikeUpdate, 1000*60*10);//1000*60*1
+setInterval(get_youbikeUpdate, 1000*60*5);//1000*60*1
 // setInterval(writedatatodb, 1000*60*10);//1000*60*1
 // writedatatodb();
 // var i = 0;
@@ -62,10 +62,10 @@ setInterval(get_youbikeUpdate, 1000*60*10);//1000*60*1
 //   console.log('still alive!' + total);
   
 // }
-function writedatatodb(){
-  querydb.createdocumentFunc();
+// function writedatatodb(){
+//   querydb.createdocumentFunc();
   
-}
+// }
 
 
 function readJsonFile(filename, callback){
