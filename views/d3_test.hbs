@@ -40,6 +40,9 @@ var xAxis = d3.svg.axis()
     .scale(x)
     .orient("bottom");
 
+var mdaymap = d3.map(dataset, function(it) { return it[0]["mday"]; }).keys();
+console.log("mdaymap:"+mdaymap);
+
 
 var y = d3.scale.linear()
     .range([height, 0]);
@@ -54,8 +57,8 @@ var color = d3.scale.ordinal()
             .range(["#21739e", "#e3a826" , "#65942e","a75f15"]);
 
 var line = d3.svg.line()
-    .x(function(d) { console.log(d.mday);return d.mday; })
-    .y(function(d) { return d.sbi; });
+    .x(function(d) { return parseDate(d[0]["mday"]); })
+    .y(function(d) { console.log("sbi:" + d[0].sbi);return d[0]["sbi"]; });
 
 var svgContainer = d3.select("body").append("svg")
                                     .attr("width", width + margin.left + margin.right)
@@ -85,16 +88,20 @@ svgContainer.append("text")
         .style("font-size", "16px") 
         .text("可借車位");
 
+var scoregroup = d3.nest().key(function(it) {
+   return it[0]["mday"];
+ }).entries(dataset);
+
+
 var youbikestation = svgContainer.selectAll(".station")
-              .data(dataset)
+              .data(scoregroup)
               .enter().append("g")
               .attr("class", "station");
 
 
-
 youbikestation.append("path")
     .attr("class", "line")
-    .attr("d", function(d) { return line(d); })
+    .attr("d", function(d) { console.log(d.values[0][0]["sbi"]);/*console.log(d.values[0][0]["sbi"]);*/return line(d.values); })
     .style("stroke", "#FF0000");
 
 svgContainer.append("g")

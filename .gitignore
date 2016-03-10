@@ -7,3 +7,5 @@
 *.tar
 *.zip
 /public/javascripts/0308/
+/public/javascripts/0310/
+/public/javascripts/0310_willRecover/

@@ -4,7 +4,7 @@ var fs = require("fs");
 var zlib = require('zlib');
 var querydb = require('../model/querydb');
 var router = express.Router();
-var totalnum = 0;
+var totalnum = 3;
 
 var json;
 var options = {
@@ -27,7 +27,7 @@ function get_youbikeUpdate(){
           var json_string = dezipped.toString('utf-8');
           json = JSON.parse(json_string);
           totalnum+=1;
-          fs.writeFile( __dirname+"/../public/javascripts/0308/YouBikeTP_"+totalnum+".json", json_string,function(err){
+          fs.writeFile( __dirname+"/../public/javascripts/0310_willRecover/YouBikeTP_"+totalnum+".json", json_string,function(err){
             if(err) console.log(err);
             console.log("get File"); 
             // querydb.createdocumentFunc();
