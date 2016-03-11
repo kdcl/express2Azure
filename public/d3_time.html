@@ -1,28 +1,31 @@
-
-{{!-- <h1>Display {{title.length}}</h1> --}}
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>剩餘</th>
-            <th>地名</th>
-            <th>日期</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each title}}
-            {{#each this}}
-            <tr>
-                {{!-- <td>{{ color }}</td> --}}
-                <td>{{ this.sno }}</td>
-                <td>{{ this.sna }}</td>
-                <td>{{ this.mday }}</td>
-            </tr>
-            {{/each}}
-        {{/each}}
-    </tbody>
-</table>
+<script src="http://d3js.org/d3.v3.js"></script>
+<body>
 <script type="application/javascript">
-var dataset = {{{json title}}};
+var dataset =  [ [ { sno: '0177',
+                        sna: '葫蘆國小',
+                        tot: '40',
+                        sbi: '15',
+                        sarea: '士林區',
+                        mday: '2016022720'
+                        } ],
+
+                    [ { sno: '0177',
+                        sna: '葫蘆國小',
+                        tot: '40',
+                        sbi: '35',
+                        sarea: '士林區',
+                        mday: '2016022721'
+                    } ],
+
+                    [ { sno: '0177',
+                        sna: '葫蘆國小',
+                        tot: '40',
+                        sbi: '11',
+                        sarea: '士林區',
+                        mday: '2016022722'
+                    } ]
+                    ];
+
 
 var margin = {top: 20, right: 80, bottom: 30, left: 50},
     width = 960 - margin.left - margin.right,
@@ -65,20 +68,6 @@ var svgContainer = d3.select("body").append("svg")
                                     .attr("height", height + margin.top + margin.bottom);
 
 
-
-var circles = svgContainer.selectAll("circle")
-                          .data(dataset)
-                          .enter()
-                          .append("circle");
-
-
-var circleAttributes = circles
-                        .attr("cx", function (d) { console.log(d[0].sno);return d[0]["x_axis"]; })
-                        .attr("cy", function (d) { return d[0]["y_axis"]; })
-                        .attr("r", function (d) { return d[0]["radius"]; })
-                        .style("fill", function(d) { return d[0]["color"]; });
-
-
 x.domain(d3.extent(dataset, function(d) {console.log("domain:"+parseDate(d[0]["mday"]));return parseDate(d[0]["mday"]); }));
 
 svgContainer.append("text")
@@ -101,7 +90,7 @@ var youbikestation = svgContainer.selectAll(".station")
 
 youbikestation.append("path")
     .attr("class", "line")
-    .attr("d", function(d) { console.log(d.values[0][0]["mday"]);/*console.log(d.values[0][0]["sbi"]);*/return line(d.values); })
+    .attr("d", function(d) { return line(d.values); })
     .style("stroke", "#FF0000");
 
 svgContainer.append("g")
@@ -112,12 +101,4 @@ svgContainer.append("g")
 
 
 </script>
-{{!-- {{#section 'script'}}
-
-    <script type="application/javascript">
-        $(function() {
-            alert( "I'm ready!" );
-        });
-    </script>
-
-{{/section}} --}}
+</body>
