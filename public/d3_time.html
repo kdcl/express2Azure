@@ -55,9 +55,6 @@ var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left");
 
-var color = d3.scale.ordinal()
-            .domain(["station1", "station2", "station3","station4"])
-            .range(["#21739e", "#e3a826" , "#65942e","a75f15"]);
 
 var line = d3.svg.line()
     .x(function(d) { console.log("line:"+parseDate(d[0]["mday"]));return parseDate(d[0]["mday"]); })
