@@ -122,13 +122,18 @@
     <link href="stylesheets/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css" />
     <link href="stylesheets/introjs.css" rel="stylesheet">
 
+
+    <!-- Add fancyBox main JS and CSS files -->
+      <script type="text/javascript" src="javascripts/jquery.fancybox.js?v=2.1.5"></script>
+      <link rel="stylesheet" type="text/css" href="stylesheets/jquery.fancybox.css?v=2.1.5" media="screen" />
+
   </head>
   <body>
     
       <input id="pac-input" class="controls" type="text" placeholder="Search Nearby location" data-step="1" data-intro="選取離你最近的地標">
 
 
-    <a type="button" id="myButton" class="btn btn-primary btn-md" href="compare.html"  data-step="5" data-intro="推薦最佳取車地點!" data-position="top" style="margin-bottom: 40px;vertical-align=middle;margin-left:15px">比較最佳取車地點<img src="images/bike.png" alt="bike image" height="20" style="margin-left:15px;"/></a>
+    <a type="button" id="myButton" class="btn btn-primary btn-md various" data-fancybox-type="iframe" href="compare.html"  data-step="5" data-intro="推薦最佳取車地點!" data-position="top" style="margin-bottom: 40px;vertical-align=middle;margin-left:15px">比較最佳取車地點<img src="images/bike.png" alt="bike image" height="20" style="margin-left:15px;"/></a>
 
     
     <div class="span5 col-md-2 col-xs-3" id="sandbox-container" >
@@ -156,23 +161,19 @@
   </body>
  
 <script>
-   /*
-$('#sandbox-container input').datepicker({
-    autoclose: true,
-    todayHighlight: true,
-    toggleActive: true,
-    format: "yyyy/mm/dd"
-
+$(document).ready(function() {
+  $(".various").fancybox({
+    maxWidth  : 1000,
+    maxHeight : 650,
+    fitToView : false,
+    width   : '80%',
+    height    : '75%',
+    autoSize  : false,
+    closeClick  : true,
+    openEffect  : 'fade',
+    closeEffect : 'fade'
+  });
 });
-$('#sandbox-container input').datepicker('update',new Date());
-$(function () {
-  var dateNow = new Date();
-    $('#datetimepicker3').datetimepicker({
-        format: 'LT',
-        defaultDate:dateNow
-    });
-});
-*/
 
 </script>
 </html>
