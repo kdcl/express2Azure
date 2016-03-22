@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+<head>
 <style>
 @import url(http://fonts.googleapis.com/earlyaccess/cwtexyen.css);
 body {
@@ -92,18 +93,32 @@ body {
 .container{
   width: 880px;
   margin: 0 0 0 25px;
-  height: 350px;
   display: flex;
   flex-direction:row;
 }
 .flex-item {
-    
-    background-color: cornflowerblue;
-    /*width: 100px;*/
-    height: 160px;
-    flex-grow: 1; /* default 0 */
+  height: 120px;
+  flex: 1;
+  padding-top: 40px;
 }
+.container .flex-item:nth-child(odd){
+  background-color: #00b9cc;
+}
+.container .flex-item:nth-child(even){
+  background-color: #38ced6;
+}
+
+.graybackground{
+  color: #4d4d4d;
+}
+
+
 </style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="stylesheets/font-awesome.min.css"> -->
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
+</head>
 <body>
 <script src="http://d3js.org/d3.v3.js"></script>
 <script>
@@ -281,9 +296,86 @@ legend.selectAll('g').data(cities)
 
 </script>
 <div class="container">
-  <div class="flex-item">1</div>
-  <div class="flex-item">2</div>
-  <div class="flex-item">3</div>
-  <div class="flex-item">4</div>
+  
+  <div class="flex-item">
+      <div>
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-square fa-stack-2x graybackground"></i>
+        <i class="fa fa-subway fa-stack-1x fa-inverse"></i>
+      </span>
+      <span>奇岩站</span>
+    </div>
+    <div>
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-square fa-stack-2x graybackground"></i>
+        <i class="fa fa-bus fa-stack-1x fa-inverse"></i>
+      </span>
+      <span>248, 紅2, 104</span>
+    </div>
+  </div>
+  <div class="flex-item"><div>
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-square fa-stack-2x graybackground"></i>
+        <i class="fa fa-bus fa-stack-1x fa-inverse"></i>
+      </span>
+      <span>211, 49, 17</span>
+    </div>
+  </div>
+  <div class="flex-item">
+    <div>
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-square fa-stack-2x graybackground"></i>
+        <i class="fa fa-product-hunt fa-stack-1x fa-inverse"></i>
+      </span>
+      <span>A停車場 剩餘1個車位</span>
+    </div>
+  </div>
+  <div class="flex-item">
+    <div>
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-square fa-stack-2x graybackground"></i>
+        <i class="fa fa-product-hunt fa-stack-1x fa-inverse"></i>
+      </span>
+      <span>B停車場 剩餘152個車位</span>
+    </div>
+  </div>
+ 
 </div>
+
+<script>
+  
+  $(function() {
+   var flex_width = $(".flex-item").width();
+   for(var i =1 ;i<4;i++){
+    $(".container" ).append( "<div class='flex-item-word-"+i+"'>"+i*100+"M</div>" );
+     $(".flex-item-word-"+i).css({
+         left: (flex_width*i+10) + 'px',
+         position: "absolute",
+         color: "white",
+         'font-size': "18px"
+    });
+   }
+    
+
+
+
+
+
+   
+    // $(".flex-item-word-2").css({
+    //      left: flex_width*2 + 'px',
+    //      position: "absolute"
+    // });
+    // $(".flex-item-word-3").css({
+    //      left: flex_width*3 + 'px',
+    //      position: "absolute"
+    // });
+   // $(".flex-item-word-1").css({left: 200, position:'absolute'});
+   // $(".flex-item-word-2").css({top: 200, left: 200, position:'absolute'});
+   // $(".flex-item-word-3").css({top: 200, left: 200, position:'absolute'});
+
+  });
+</script>
+ 
+
 </body>
